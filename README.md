@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿# Privacy-Preserving Brain Tumor Detection Using Radiomics
 
 A brain MRI analysis project exploring radiomics-based tumor classification, fuzzy clustering, convolutional neural networks (CNNs), and federated learning.
@@ -81,3 +82,6 @@ The recorded experiments used 5,600 training images and 1,600 testing images acr
 The federated experiment used four clients and four aggregation rounds. Its recorded global test accuracy increased from 65.31% in Round 1 to 74.00% in Round 4. PCA reduced the original 93 radiomics features to 12 components, accounting for 95.77% of the reported explained variance.
 
 These values are transcribed from the project's experimental results files and have not been independently reproduced during repository preparation.
+=======
+# privacy-preserving-brain-tumor-detection
+>>>>>>> origin/main
