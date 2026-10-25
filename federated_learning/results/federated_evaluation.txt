@@ -1,0 +1,30 @@
+FEDERATED MODEL EVALUATION
+===========================
+
+Accuracy  : 76.94%
+Precision : 77.78%
+Recall    : 76.94%
+F1 Score  : 76.46%
+
+CLASSIFICATION REPORT
+=====================
+
+              precision    recall  f1-score   support
+
+      glioma       0.83      0.60      0.70       400
+  meningioma       0.67      0.66      0.66       400
+     notumor       0.73      0.97      0.83       400
+   pituitary       0.88      0.84      0.86       400
+
+    accuracy                           0.77      1600
+   macro avg       0.78      0.77      0.76      1600
+weighted avg       0.78      0.77      0.76      1600
+
+
+CONFUSION MATRIX
+================
+
+[[242  87  59  12]
+ [ 23 263  83  31]
+ [  2   6 389   3]
+ [ 24  35   4 337]]

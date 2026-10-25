@@ -1,0 +1,217 @@
+============================================================
+BRAIN TUMOR CLASSIFICATION PROJECT
+FINAL EXPERIMENTAL RESULTS
+============================================================
+
+PROJECT TITLE:
+Privacy-Preserving Radiomics-Based Brain Tumor Detection
+Using Fuzzy Clustering and Federated Learning
+
+------------------------------------------------------------
+DATASET
+------------------------------------------------------------
+
+Training images: 5600
+Testing images: 1600
+
+Classes:
+1. Glioma
+2. Meningioma
+3. No Tumor
+4. Pituitary
+
+Training distribution:
+Glioma       : 1400
+Meningioma   : 1400
+No Tumor     : 1400
+Pituitary    : 1400
+
+Testing distribution:
+Glioma       : 400
+Meningioma   : 400
+No Tumor     : 400
+Pituitary    : 400
+
+
+------------------------------------------------------------
+RADIOMICS
+------------------------------------------------------------
+
+Original radiomics features: 93
+
+Training radiomics shape:
+5600 x 93
+
+Testing radiomics shape:
+1600 x 93
+
+
+------------------------------------------------------------
+FUZZY CLUSTERING
+------------------------------------------------------------
+
+Number of fuzzy clusters: 4
+
+Cluster distribution:
+
+Client 0 : 583
+Client 1 : 1332
+Client 2 : 2318
+Client 3 : 1367
+
+
+------------------------------------------------------------
+PCA
+------------------------------------------------------------
+
+Original features: 93
+PCA components: 12
+
+Explained variance:
+95.77%
+
+
+------------------------------------------------------------
+FEDERATED LEARNING
+------------------------------------------------------------
+
+Number of federated clients: 4
+Number of federated rounds: 4
+
+Aggregation method:
+FedAvg
+
+Global test accuracy:
+
+Round 1 : 65.31%
+Round 2 : 70.38%
+Round 3 : 72.37%
+Round 4 : 74.00%
+
+
+------------------------------------------------------------
+FINAL FEDERATED MODEL
+------------------------------------------------------------
+
+Test Loss: 0.9375
+Test Accuracy: 74.00%
+
+Classification Results:
+
+Glioma
+Precision: 0.7984
+Recall:    0.5050
+F1-score:  0.6187
+
+Meningioma
+Precision: 0.6447
+Recall:    0.6350
+F1-score:  0.6398
+
+No Tumor
+Precision: 0.7306
+Recall:    0.9625
+F1-score:  0.8306
+
+Pituitary
+Precision: 0.8052
+Recall:    0.8575
+F1-score:  0.8305
+
+
+------------------------------------------------------------
+CONFUSION MATRIX
+------------------------------------------------------------
+
+                 Predicted
+                 G    M    N    P
+
+Actual Glioma   202  100   58   40
+Actual Mening.   31  254   76   39
+Actual NoTumor    5    6  385    4
+Actual Pituitary 15   34    8  343
+
+
+------------------------------------------------------------
+MODEL COMPARISON
+------------------------------------------------------------
+
+CNN Only:
+76.94%
+
+Radiomics Only:
+86.75%
+
+CNN + Radiomics:
+82.69%
+
+Fuzzy + PCA + Federated Radiomics:
+74.00%
+
+
+------------------------------------------------------------
+FINAL PIPELINE
+------------------------------------------------------------
+
+MRI Images
+    |
+    v
+Radiomics Feature Extraction
+    |
+    v
+93 Radiomics Features
+    |
+    v
+Fuzzy C-Means Clustering
+    |
+    v
+4 Federated Clients
+    |
+    v
+Standard Scaling
+    |
+    v
+PCA
+    |
+    v
+12 Principal Components
+    |
+    v
+Local Client Training
+    |
+    v
+FedAvg Aggregation
+    |
+    v
+Global Federated Model
+    |
+    v
+Brain Tumor Classification
+
+
+------------------------------------------------------------
+SAVED MODELS
+------------------------------------------------------------
+
+Federated model:
+models\federated_radiomics_model.keras
+
+Scaler:
+models\federated_radiomics_scaler.pkl
+
+PCA:
+models\federated_radiomics_pca.pkl
+
+Fuzzy centers:
+models\fuzzy_centers.npy
+
+Fuzzy membership:
+models\fuzzy_membership.npy
+
+Fuzzy cluster labels:
+models\fuzzy_cluster_labels.npy
+
+
+============================================================
+END OF FINAL RESULTS
+============================================================

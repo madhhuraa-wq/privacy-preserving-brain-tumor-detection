@@ -1,0 +1,40 @@
+@'
+# Python cache and environments
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
+brain_tumor/
+
+# Jupyter checkpoints
+.ipynb_checkpoints/
+
+# Secrets and local configuration
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# MRI datasets - review before publishing
+dataset/
+data/
+
+# Large model and generated artifacts
+*.keras
+*.h5
+*.pkl
+*.joblib
+*.pt
+*.pth
+
+# Logs and temporary files
+*.log
+temp/
+tmp/
+
+# Editor and operating system files
+.DS_Store
+Thumbs.db
+'@ | Set-Content -Encoding utf8 .gitignore

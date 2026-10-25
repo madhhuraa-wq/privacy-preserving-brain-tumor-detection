@@ -1,0 +1,28 @@
+dataset/
+data/
+models/
+.vscode/
+*.keras
+*.h5
+*.pkl
+*.joblib
+*.pt
+*.pth
+*.npy
+__pycache__/
+*.pyc
+.venv/
+venv/
+env/
+brain_tumor/
+.ipynb_checkpoints/
+.env
+.env.*
+!.env.example
+
+# Generated feature files
+features/*.csv
+radiomics/results/*.csv
+
+# Editor workspace files
+*.code-workspace

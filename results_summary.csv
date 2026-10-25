@@ -1,0 +1,5 @@
+Model,Features,Main_Method,Test_Accuracy
+CNN Only,Deep CNN Features,CNN,76.94
+Radiomics Only,93 Radiomics Features,Random Forest + PCA,86.75
+CNN + Radiomics,258 Combined Features,Random Forest,82.69
+Fuzzy + PCA + Federated Radiomics,93 Radiomics Features,Fuzzy C-Means + PCA + FedAvg,74.00

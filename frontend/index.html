@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Brain Tumor Detection</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #e8f1ff, #f8fbff);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 30px;
+        }
+
+        .container {
+            width: 900px;
+            max-width: 100%;
+            background: white;
+            border-radius: 20px;
+            padding: 35px;
+            box-shadow: 0 10px 35px rgba(0, 0, 0, 0.12);
+        }
+
+        h1 {
+            text-align: center;
+            color: #173b6c;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        .upload-area {
+            border: 2px dashed #4285f4;
+            border-radius: 15px;
+            padding: 35px;
+            text-align: center;
+            background: #f7faff;
+        }
+
+        input[type="file"] {
+            margin: 20px 0;
+        }
+
+        button {
+            background: #1769aa;
+            color: white;
+            border: none;
+            padding: 13px 30px;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #0d4f82;
+        }
+
+        button:disabled {
+            background: #999;
+            cursor: not-allowed;
+        }
+
+        #preview {
+            max-width: 350px;
+            max-height: 300px;
+            margin: 25px auto;
+            display: none;
+            border-radius: 10px;
+            border: 1px solid #ddd;
+        }
+
+        .result {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 15px;
+            background: #f4f8fc;
+        }
+
+        .prediction {
+            text-align: center;
+            font-size: 28px;
+            font-weight: bold;
+            color: #173b6c;
+            margin: 10px 0;
+        }
+
+        .confidence {
+            text-align: center;
+            font-size: 18px;
+            margin-bottom: 25px;
+        }
+
+        .probability {
+            margin: 12px 0;
+        }
+
+        .label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+        }
+
+        .bar {
+            width: 100%;
+            height: 20px;
+            background: #ddd;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .fill {
+            height: 100%;
+            width: 0%;
+            background: #4285f4;
+            transition: width 0.5s;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            margin-top: 20px;
+            color: #1769aa;
+        }
+
+        .error {
+            display: none;
+            margin-top: 20px;
+            padding: 15px;
+            background: #ffe8e8;
+            color: #b00020;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 25px;
+            color: #888;
+            font-size: 13px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>🧠 Brain Tumor Detection</h1>
+
+    <p class="subtitle">
+        Privacy-Preserving Fuzzy Clustering & Federated Learning
+    </p>
+
+    <div class="upload-area">
+
+        <h3>Upload MRI Image</h3>
+
+        <input
+            type="file"
+            id="imageInput"
+            accept="image/*"
+        >
+
+        <br>
+
+        <img id="preview" alt="MRI Preview">
+
+        <br>
+
+        <button id="predictBtn" onclick="predictImage()">
+            Predict Tumor
+        </button>
+
+        <div class="loading" id="loading">
+            🔄 Analyzing MRI image...
+        </div>
+
+        <div class="error" id="error"></div>
+
+    </div>
+
+    <div class="result" id="result">
+
+        <h3 style="text-align:center;">
+            Prediction Result
+        </h3>
+
+        <div class="prediction" id="prediction">
+            -
+        </div>
+
+        <div class="confidence">
+            Confidence:
+            <strong id="confidence">-</strong>
+        </div>
+
+        <h3>Class Probabilities</h3>
+
+        <div class="probability">
+            <div class="label">
+                <span>Glioma</span>
+                <span id="gliomaValue">0%</span>
+            </div>
+
+            <div class="bar">
+                <div class="fill" id="gliomaBar"></div>
+            </div>
+        </div>
+
+        <div class="probability">
+            <div class="label">
+                <span>Meningioma</span>
+                <span id="meningiomaValue">0%</span>
+            </div>
+
+            <div class="bar">
+                <div class="fill" id="meningiomaBar"></div>
+            </div>
+        </div>
+
+        <div class="probability">
+            <div class="label">
+                <span>No Tumor</span>
+                <span id="notumorValue">0%</span>
+            </div>
+
+            <div class="bar">
+                <div class="fill" id="notumorBar"></div>
+            </div>
+        </div>
+
+        <div class="probability">
+            <div class="label">
+                <span>Pituitary</span>
+                <span id="pituitaryValue">0%</span>
+            </div>
+
+            <div class="bar">
+                <div class="fill" id="pituitaryBar"></div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="footer">
+        Brain Tumor Detection using Fuzzy Clustering and Federated Learning
+    </div>
+
+</div>
+
+<script>
+
+const imageInput = document.getElementById("imageInput");
+const preview = document.getElementById("preview");
+
+imageInput.addEventListener("change", function () {
+
+    const file = this.files[0];
+
+    if (file) {
+
+        preview.src = URL.createObjectURL(file);
+
+        preview.style.display = "block";
+
+        document.getElementById("result").style.display = "none";
+        document.getElementById("error").style.display = "none";
+    }
+
+});
+
+
+async function predictImage() {
+
+    const file = imageInput.files[0];
+
+    if (!file) {
+
+        showError("Please select an MRI image first.");
+
+        return;
+    }
+
+    const button = document.getElementById("predictBtn");
+
+    const loading = document.getElementById("loading");
+
+    const result = document.getElementById("result");
+
+    const error = document.getElementById("error");
+
+
+    button.disabled = true;
+
+    loading.style.display = "block";
+
+    result.style.display = "none";
+
+    error.style.display = "none";
+
+
+    const formData = new FormData();
+
+    formData.append("image", file);
+
+
+    try {
+
+        const response = await fetch(
+            "http://127.0.0.1:5000/predict",
+            {
+                method: "POST",
+                body: formData
+            }
+        );
+
+
+        const data = await response.json();
+
+
+        if (data.status !== "success") {
+
+            showError(
+                data.error || "Prediction failed."
+            );
+
+            return;
+        }
+
+
+        document.getElementById("prediction").textContent =
+            data.prediction;
+
+
+        document.getElementById("confidence").textContent =
+            data.confidence.toFixed(2) + "%";
+
+
+        updateProbability(
+            "glioma",
+            data.probabilities.glioma
+        );
+
+
+        updateProbability(
+            "meningioma",
+            data.probabilities.meningioma
+        );
+
+
+        updateProbability(
+            "notumor",
+            data.probabilities.notumor
+        );
+
+
+        updateProbability(
+            "pituitary",
+            data.probabilities.pituitary
+        );
+
+
+        result.style.display = "block";
+
+    }
+
+    catch (error) {
+
+        showError(
+            "Could not connect to the Flask backend. Make sure the backend is running."
+        );
+
+    }
+
+    finally {
+
+        button.disabled = false;
+
+        loading.style.display = "none";
+
+    }
+
+}
+
+
+function updateProbability(className, value) {
+
+    document.getElementById(
+        className + "Value"
+    ).textContent =
+        value.toFixed(2) + "%";
+
+
+    document.getElementById(
+        className + "Bar"
+    ).style.width =
+        value + "%";
+
+}
+
+
+function showError(message) {
+
+    const error = document.getElementById("error");
+
+    error.textContent = message;
+
+    error.style.display = "block";
+
+}
+
+</script>
+
+</body>
+</html>
