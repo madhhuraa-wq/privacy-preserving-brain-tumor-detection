@@ -68,4 +68,8 @@ Exact installation commands and model download instructions remain to be verifie
 
 ## Author
 
-Computer Science and Engineering (Data Science) student.
+**Madhura M**  
+Bangalore Institute of Technology (BIT)  
+Department: Computer Science and Engineering (Data Science)  
+
+
